@@ -90,6 +90,8 @@ contract BuyToken {
      *  @param _price  The price to buy those in ETH.
      */
     function buyToken(uint _amount, uint _price) payable {
+        uint memory mult = _amount * _price;
+        assert(mult/_amount == _price);
         require(_price>=price); // The price is at least the current price.
         require(_price * _amount * 1 ether <= msg.value); // You have paid at least the total price.
         balances[msg.sender]+=_amount;
@@ -106,8 +108,11 @@ contract BuyToken {
 }
 
 //***Solution Exercise 3***//
-// 
-
+// buyToken function is again vulnerable to uint256 overflow. Since _price and _amount are introduced by
+// the function caller, he can play with those numbers in order to make _price * _amount = uint256 max
+// we can set the highest amount possible at any given price to perform that overflow
+// For fix we could make the multiplication robust to overflow. See lines 93 to 94
+// Another vulnerability is the fact that the price can be set to 0, making the contract useless
 
 
 //*** Exercice 4 ***//
