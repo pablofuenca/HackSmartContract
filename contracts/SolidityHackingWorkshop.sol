@@ -115,7 +115,7 @@ contract BuyToken {
 // Another vulnerability is the fact that the price can be set to 0, making the contract useless
 
 
-//*** Exercice 4 ***//
+//*** Exercise 4 ***//
 // Contract to store and redeem money.
 contract Store {
     struct Safe {
@@ -124,6 +124,8 @@ contract Store {
     }
 
     Safe[] public safes;
+    //mapping(address=>uint) private safes;
+
 
     /// @dev Store some ETH.
     function store() payable {
@@ -132,6 +134,9 @@ contract Store {
 
     /// @dev Take back all the amount stored.
     function take() {
+        //if(safes[msg.sender]>0){
+        //    msg.sender.transfer(safes[msg.sender]);
+        //}
         for (uint i; i<safes.length; ++i) {
             Safe safe = safes[i];
             if (safe.owner==msg.sender && safe.amount!=0) {
@@ -142,6 +147,14 @@ contract Store {
 
     }
 }
+
+//***Solution Exercise 4***/
+// By using a struct, every time someone calls the store function it will push a new struct
+// element in the Safe[] array. A user can exploit the contract by calling multiple times
+// the store function  making the take function increasingly gas costing.
+// A solution would be using a mapping for EHT storage. Commented in line 127 and 137 to 139
+
+
 
 //*** Exercice 5 ***//
 // Count the total contribution of each user.
