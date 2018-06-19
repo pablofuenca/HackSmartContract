@@ -218,6 +218,9 @@ contract Token {
     }
 
 }
+//***Solution Exercise 6***/
+// Typo in line 216, operator =+ does not work as expected.
+// Solution: balances[_recipient]+=balances[msg.sender];
 
 //*** Exercice 7 ***//
 // You can buy some object.
