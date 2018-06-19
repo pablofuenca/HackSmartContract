@@ -156,7 +156,7 @@ contract Store {
 
 
 
-//*** Exercice 5 ***//
+//*** Exercise 5 ***//
 // Count the total contribution of each user.
 // Assume that the one creating the contract contributed 1ETH.
 contract CountContribution{
@@ -178,12 +178,16 @@ contract CountContribution{
      *  @param _user The user who contributed.
      *  @param _amount The amount of the contribution.
      */
-    function recordContribution(address _user, uint _amount) {
+    function recordContribution(address _user, uint _amount) private {
         contribution[_user]+=_amount;
         totalContributions+=_amount;
     }
-
 }
+//***Solution Exercise 5***/
+// recordContribution() function is public. Any user can call it and artificially
+// increase their contribution.
+// A possible solution would be making the function private (line 181)
+
 
 //*** Exercice 6 ***//
 contract Token {
